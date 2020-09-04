@@ -1,0 +1,32 @@
+{% extends "users/base.html" %}
+{% block content %}
+
+<article class="media content-section">
+    <div class="media-body" name="note-info">
+        <div class="article-metadata">
+            <h2 class="mr-2 article-title">{{ title }}</h2>
+            <small class="text-muted">Last modified: {{ last_modified }}</small>
+        </div>
+        <p class="article-content">{{ note_text }}</p><br>
+        <small>Tags: {% for tag in tags %}{{ tag }}, {% endfor %}</small>
+    </div>
+</article>
+<a href="{% url 'edit-note' note_id %}"><button type="button" name="update-button" class="btn btn-outline-info">Edit</button></a>&nbsp;&nbsp;
+<button type="button" name="delete-button" class="btn btn-outline-danger" id="delete-note" onclick="toggleDisplay();">Delete</button>&nbsp;&nbsp;
+<a href="{% url 'notes-home' %}"><button type="button" name="back-home-button" class="btn btn-outline-secondary">Cancel</button></a>
+<br><br><div class="" style="display: none;" id="confirm-deletion">
+    <div class="alert alert-warning">
+        Deleting a note is permanent and cannot be undone. Are you sure you want to delete it?
+    </div>
+    <a href="{% url 'delete-note' note_id %}"><button type="submit" name="button" class="btn btn-outline-success">Yes</button></a> <a href="{% url 'note-detail' note_id %}"><button type="submit" name="button" class="btn btn-outline-danger">No</button></a>
+</div>
+
+<script type="text/javascript">
+    function toggleDisplay() {
+        console.log(document.getElementById("confirm-deletion").style.display);
+        document.getElementById("delete-note").style.display = "none";
+        document.getElementById("confirm-deletion").style.display = "inline";
+    }
+</script>
+
+{% endblock content %}

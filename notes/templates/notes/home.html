@@ -1,0 +1,14 @@
+{% extends "users/base.html" %}
+{% block content %}
+<div style="text-align: center;">
+    <h3>Let&#39;s Note</h3>
+    <p>Running out of paper to jot down ideas? Try Let&#39;s Note!</p>
+    <p>The one place you can conveniently store your notes.</p><br>
+    {% if user.is_authenticated %}
+    <p>You are already logged in. Click the Let&#39;s Note logo in the header to see your notes.</p>
+    {% else %}
+    <a href="{% url 'register' %}"><button class="btn btn-outline-info">Get Started Now!</button></a><br><br>
+    <small class="text-muted">Already Have An Account? <a href="{% url 'login' %}">Log In</a></small>
+    {% endif %}
+</div>
+{% endblock content %}
