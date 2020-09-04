@@ -1,0 +1,18 @@
+{%extends 'users/base.html'%}
+{%block content%}
+{% load widget_tweaks %}
+
+<div class="content-section">
+    <form action="" method="POST" class="form-group">
+        {%csrf_token%}
+        Title:<br>{{ form.title|add_class:"textinput textInput form-control" }}<br><br>
+        Text:<br>{{ form.note_text|add_class:"textinput textInput form-control" }}<br><br>
+        Tags:<br><input type="text" name="tags" class="textinput textInput form-control" value="{% for tag in tags %}{{ tag.tag_text }},{% endfor %}"><br><br>
+        <div class="alert alert-warning">
+            Tags must NOT contain spaces or commas within them. Tags must be comma-separated.
+        </div>
+        <input type="submit" value="Save" class="btn btn-outline-success"> <a href="{% url 'notes-home' %}"><button type="button" name="button" class="btn btn-outline-secondary">Cancel</button></a><br><br>
+    </form>
+</div>
+
+{% endblock %}

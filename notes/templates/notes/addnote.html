@@ -1,0 +1,15 @@
+{%extends 'users/base.html'%}
+{%block content%}
+<div class="content-section">
+    <form action="{% url 'addnote' %}" method="POST" class="form-group">
+        {% csrf_token %}
+        Title:<br><input type="text" name="title" class="textinput textInput form-control" autofocus><br><br>
+        Text:<br><textarea name="note_text" rows="8" cols="80" class="textinput textInput form-control" autofocus></textarea><br><br>
+        Tags:<br><input type="text" name="tags" class="textinput textInput form-control"><br>
+        <div class="alert alert-warning">
+            Tags must NOT contain spaces or commas within them. Tags must be comma-separated.
+        </div>
+        <input type="submit" value="Save" class="btn btn-outline-success"> <a href="/home/"><button type="button" name="button" class="btn btn-outline-secondary">Cancel</button></a><br><br>
+    </form>
+</div>
+{% endblock %}

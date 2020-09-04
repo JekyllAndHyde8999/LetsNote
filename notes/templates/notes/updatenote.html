@@ -1,0 +1,13 @@
+{%extends 'users/base.html'%}
+{%block content%}
+<form action="{% url 'finish-update' note_id %}" method="POST" class="form-group">
+    {%csrf_token%}
+    Title:<br><input type="text" name="title" class="textinput textInput" value="{{ note.title }}"><br><br>
+    Text:<br><textarea name="note_text" rows="8" cols="80" class="textinput textInput" value="{{ note.note_text }}"></textarea><br><br>
+    Tags:<br><input type="text" name="tags" class="textinput textInput" value="{{ note.tag_string }}"><br>
+    <div class="alert alert-warning">
+        Tags must NOT contain spaces or commas within them. Tags must be given comma separated.
+    </div>
+    <input type="submit" value="Save" class="btn btn-outline-info"> <a href="/home/notes/{{ note_id }}"><button type="button" name="button" class="btn btn-outline-info">Cancel</button></a><br><br>
+</form>
+{% endblock %}

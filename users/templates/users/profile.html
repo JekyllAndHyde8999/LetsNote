@@ -1,0 +1,37 @@
+{% extends "users/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="content-section">
+    <div class="media">
+        <img class="rounded-circle account-img" src="{{ user.profile.profile_pic.url }}">
+        <div class="media-body">
+            <h2 class="account-heading">{{ user.username }}</h2>
+            <p class="text-secondary">{{ user.email }}</p>
+        </div>
+    </div>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Profile Info</legend>
+            {{ u_form | crispy }}
+            {{ p_form | crispy }}
+        </fieldset>
+        <div class="form-group">
+            <button class="btn btn-outline-success" type="submit" name="update-button">Update Profile</button> <button class="btn btn-outline-danger" type="button" name="delete-profile" id="delete-profile" onclick="toggleDisplay();">Delete Profile</button> <a href="{% url 'notes-home' %}"><button class="btn btn-outline-secondary" type="button" name="cancel" id="cancel-update" onclick="toggleDisplay();">Cancel</button></a>
+        </div>
+    </form>
+    <script type="text/javascript">
+        function toggleDisplay() {
+            console.log(document.getElementById("confirm-deletion").style.display);
+            document.getElementById("delete-profile").style.display = "none";
+            document.getElementById("confirm-deletion").style.display = "inline";
+        }
+    </script>
+    <div class="" style="display: none;" id="confirm-deletion">
+        <div class="alert alert-warning">
+            Deleting your profile is permanent and cannot be undone. Are you sure you want to delete it?
+        </div>
+        <a href="{% url 'delete-profile' %}"><button type="submit" name="button" class="btn btn-outline-success">Yes</button></a> <a href="{% url 'notes-home' %}"><button type="submit" name="button" class="btn btn-outline-danger">No</button></a>
+    </div>
+</div>
+{% endblock content %}

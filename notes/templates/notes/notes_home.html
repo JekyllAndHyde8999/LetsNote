@@ -1,0 +1,32 @@
+{% extends "users/base.html" %}
+{% block content %}
+
+{% if userNotesExists %}
+<form class="" action="{% url 'notes-home' %}" method="POST">
+    {% csrf_token %}
+    <input type="text" name="tag-search" value="{{ existing_tag }}" placeholder="Search for a tag" class="textinput textInput form-control"><br>
+    <button type="submit" name="search-button" class="btn btn-outline-info">Search</button>
+</form>
+<br><br>
+{% if notes %}
+{% for note in notes %}
+<article class="media content-section">
+    <div class="media-body">
+        <div class="article-metadata">
+            <h2><a class="mr-2" href="{% url 'note-detail' note.id %}">{{ note.title }}</a></h2>
+            <small class="text-muted">Last modified: {{ note.last_modified }}</small>
+        </div>
+        <p class="article-content">{{ note.note_text }}</p><br>
+        <small>Tags: {% for tag in note.tags_list %}<a href="/home/{{tag}}">{{ tag }}</a>, {% endfor %}</small>
+    </div>
+</article>
+{% endfor %}
+{% else %}
+You are searching for an invalid tag.<br><br>
+{% endif %}
+{% else %}
+You don&#39;t have any notes. Start making some now!<br><br>
+{% endif %}
+<a href="{% url 'addnote' %}"><button type="button" name="add-button" class="btn btn-outline-info">Add a Note</button></a><br><br>
+
+{% endblock content %}

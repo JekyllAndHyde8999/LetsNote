@@ -1,0 +1,26 @@
+{% extends "users/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+{% if user.is_authenticated %}
+<p>You are already logged in. Click the Let&#39;s Note logo to see your notes.</p>
+{% else %}
+<div class="content-section">
+    <form action="" method="POST">
+        {% csrf_token %}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Log In</legend>
+            {{ form | crispy }}
+        </fieldset>
+        <div class="form-group">
+            <button class="btn btn-outline-info" type="submit" name="login-button">Log In</button>
+            <small class="text-muted ml-2">
+                <a href="{% url 'password_reset' %}">Forgot password?</a>
+            </small>
+        </div>
+    </form>
+    <div class="border-top pt-3">
+        <small class="text-muted">Don&#39;t Have an Account? <a href="{% url 'register' %}" class="ml-2">Sign Up Here!</a></small>
+    </div>
+</div>
+{% endif %}
+{% endblock content %}

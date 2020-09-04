@@ -1,0 +1,16 @@
+<div class="form-group">
+    <button class="btn btn-outline-info" type="button" name="delete-profile" id="delete-profile" onclick="toggleDisplay();">Delete Profile</button>
+</div>
+<script type="text/javascript">
+    function toggleDisplay() {
+        console.log(document.getElementById("confirm-deletion").style.display);
+        document.getElementById("delete-profile").style.display = "none";
+        document.getElementById("confirm-deletion").style.display = "inline";
+    }
+</script>
+<div class="" style="display: none;" id="confirm-deletion">
+    <div class="alert alert-warning">
+        Deleting your profile is permanent and cannot be undone. Are you sure you want to delete it?
+    </div>
+    <a href="{% url 'delete-profile' user.id %}"><button type="submit" name="button" class="btn btn-outline-info" style="color: green;">Yes</button></a> <button type="submit" name="button" class="btn btn-outline-info" style="color: red;">No</button>
+</div>
