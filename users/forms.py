@@ -10,7 +10,7 @@ class UserRegisterForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['username', 'email', 'password1', 'password2']
-    """
+    
     def clean_email(self):
         email = self.cleaned_data.get('email')
         username = self.cleaned_data.get('username')
@@ -20,7 +20,7 @@ class UserRegisterForm(UserCreationForm):
         if email and unique_filter:
             raise forms.ValidationError(u'Email address must be unique.')
 
-        return email"""
+        return email
 
 
 class UserUpdateForm(forms.ModelForm):

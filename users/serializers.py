@@ -4,12 +4,12 @@ from django.contrib.auth.models import User
 from .models import Profile
 
 class UserSerializer(serializers.ModelSerializer):
-    # notes = serializers.StringRelatedField(many=True)
-    # email = serializers.EmailField(
-    #             validators=[
-    #                 validators.UniqueValidator(queryset=User.objects.all())
-    #             ]
-    #         )
+    notes = serializers.StringRelatedField(many=True)
+    email = serializers.EmailField(
+                validators=[
+                    validators.UniqueValidator(queryset=User.objects.all())
+                ]
+            )
 
     def create(self, validated_data):
         return User.objects.create_user(**validated_data)
