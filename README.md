@@ -284,6 +284,7 @@ requests.put(
     },
     data={
         "note": {
+            "pk": $PK
             "title": $TITLE,
             "note_text": $NOTE_TEXT,
             "tags": [
