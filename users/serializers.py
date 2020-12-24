@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from .models import Profile
 
 class UserSerializer(serializers.ModelSerializer):
-    notes = serializers.StringRelatedField(many=True)
+    # notes = serializers.StringRelatedField(many=True)
     email = serializers.EmailField(
                 validators=[
                     validators.UniqueValidator(queryset=User.objects.all())

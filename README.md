@@ -273,7 +273,7 @@ To update the content of a note (title, note_text, tags). Including all 3 fields
 **Request Format**<br>
 With cURL:
 ```bash
-curl -X PUT -H "Authorization: Token $TOKEN" -d '{"note": {"title": $TITLE, "note_text": $NOTE_TEXT, "tags": [$TAGS]}}' http://127.0.0.1:8000/api/notes/
+curl -X PUT -H "Authorization: Token $TOKEN" -d '{"note": {"pk": $PK, "title": $TITLE, "note_text": $NOTE_TEXT, "tags": [$TAGS]}}' http://127.0.0.1:8000/api/notes/
 ```
 With Python-Requests:
 ```python

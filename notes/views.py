@@ -227,15 +227,16 @@ class NoteAPIView(APIView):
                         'err': 'You do not have access to this note.'
                     }, status=status.HTTP_403_FORBIDDEN)
 
-                tag_set = Note_Tag.objects.filter(note=note_obj)
-                tag_set.delete()
-
                 note_obj.title = note.get('title', note_obj.title)
                 note_obj.note_text = note.get('note_text', note_obj.note_text)
                 note_obj.save()
 
-                for tag in note.get('tags'):
-                    Note_Tag.objects.create(tag_text=tag, note=note_obj)
+                if note.get('tags'):
+                    tag_set = Note_Tag.objects.filter(note=note_obj)
+                    tag_set.delete()
+
+                    for tag in note.get('tags'):
+                        Note_Tag.objects.create(tag_text=tag, note=note_obj)
 
                 note_serializer = NoteSerializer(note_obj)
                 return Response({
