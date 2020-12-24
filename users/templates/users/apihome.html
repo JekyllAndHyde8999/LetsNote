@@ -122,7 +122,7 @@
 <p>To update the content of a note (title, note_text, tags). Including all 3 fields in the request is not mandatory. Any of the fields can be updated at a time.</p>
 <div class="content">
     <p>Request:</p>
-    <pre class="content-section">curl -X PUT -H "Authorization: Token $TOKEN" -d '{"note": {"title": $TITLE, "note_text": $NOTE_TEXT, "tags": [$TAGS]}}' http://127.0.0.1:8000/api/notes/</pre>
+    <pre class="content-section">curl -X PUT -H "Authorization: Token $TOKEN" -d '{"note": {"pk": $PK, "title": $TITLE, "note_text": $NOTE_TEXT, "tags": [$TAGS]}}' http://127.0.0.1:8000/api/notes/</pre>
     <p>Response:</p>
     <pre class="content-section">{
     'success': 'Note $TITLE updated successfully'
