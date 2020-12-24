@@ -193,6 +193,13 @@ requests.delete(
 )
 ```
 
+**Response Format**<br>
+```bash
+{
+    "success": "User $USERNAME deleted successfully."
+}
+```
+
 ### GET /notes
 Returns a list of all notes belonging to the authenticated user.<br>
 **Request Format**<br>

@@ -1,0 +1,142 @@
+{% extends "users/base.html" %}
+{% block content %}
+<h2>
+    Base URL: <a href="{% url 'api-home' %}">{{ curr_site }}/api/</a>
+</h2>
+
+<h3>
+    Token Authentication APIs
+</h3>
+
+<h4>
+    POST /api-token-auth
+</h4>
+<p>For a registered user to obtain their auth-token</p>
+<div class="content">
+    <p>Request:</p>
+    <pre class="content-section">curl -X POST -d '{"username": "$USERNAME", "password": "$PASSWORD"}' {{ curr_site }}/api/api-token-auth/</pre>
+    <p>Response:</p>
+    <pre class="content-section">
+{
+    "token": "$TOKEN"
+}</pre>
+</div>
+
+<h3>
+    User APIs
+</h3>
+
+<h4>
+    GET /users
+</h4>
+<p>To get the details of the authenticated user</p>
+<div class="content">
+    <p>Request:</p>
+    <pre class="content-section">curl -X GET -H "Authorization: Token $TOKEN" {{ curr_site }}/api/users/</pre>
+    <p>Response:</p>
+    <pre class="content-section">{
+    "first_name": $FIRST_NAME,
+    "last_name": $LAST_NAME,
+    "username": $USERNAME,
+    "email": $EMAIL,
+    "password": $PASSWORD
+}</pre>
+</div>
+<h4>
+    POST /users
+</h4>
+<p>To register a new user</p>
+<div class="content">
+    <p>Request:</p>
+    <pre class="content-section">curl -X POST -d '{"user": {"username": "$USERNAME", "password": "$PASSWORD", "email": "$EMAIL"}}' {{ curr_site }}/api/users/</pre>
+    <p>Response:</p>
+    <pre class="content-section">{
+    "success": "User $USERNAME created successfully.",
+    "token": $TOKEN
+}</pre>
+</div>
+
+<h4>
+    PUT /users
+</h4>
+<p>To update your email or username. (Email and username fields are unique in our database. If this API is called with an email or username that already exists in the database, the request will not be completed.)</p>
+<div class="content">
+    <p>Request:</p>
+    <pre class="content-section">curl -X PUT -H "Authorization: Token $TOKEN" -d '{"user": {"username": "$USERNAME", "email": "$EMAIL"}}' {{ curr_site }}/api/users/</pre>
+    <p>Response:</p>
+    <pre class="content-section">{
+    "success": "User $USERNAME details updated successfully."
+}</pre>
+</div>
+
+<h4>DELETE /users</h4>
+<p>Calling this API will delete your entire account (including the profile and all the notes).</p>
+<div class="content">
+    <p>Request:</p>
+    <pre class="content-section">curl -X DELETE -H "Authorization: Token $TOKEN" {{ curr_site }}/api/users/</pre>
+    <p>Response:</p>
+    <pre class="content-section">{
+    "success": "User $USERNAME deleted successfully"
+}</pre>
+</div>
+
+<h3>Notes APIs</h3>
+
+<h4>GET /notes</h4>
+<p>Returns a list of all notes belonging to the authenticated user.</p>
+<div class="content">
+    <p>Request:</p>
+    <pre class="content-section">curl -X GET -H "Authorization: Token $TOKEN" {{ curr_site }}/api/notes/</pre>
+    <p>Response:</p>
+    <pre class="content-section">[
+    {
+        "pk": $PK,
+        "title": $TITLE,
+        "note_text": $NOTE_TEXT,
+        "tags": [
+            $TAGS
+        ],
+        "last_modified": $LAST_MODIFIED
+    } (for each note)
+]</pre>
+</div>
+
+<h4>POST /notes</h4>
+<p>To create a note belonging to the authenticated user.</p>
+<div class="content">
+    <p>Request:</p>
+    <pre class="content-section">curl -X POST -H "Authorization: Token $TOKEN" -d '{"note": {"title": $TITLE, "note_text": $NOTE_TEXT, "tags": [$TAGS]}}' {{ curr_site }}/api/notes/</pre>
+    <p>Response:</p>
+    <pre class="content-section">{
+    "pk": $PK,
+    "title": $TITLE,
+    "note_text": $NOTE_TEXT,
+    "tags": [
+        $TAGS
+    ],
+    "last_modified": $LAST_MODIFIED
+}</pre>
+</div>
+
+<h4>PUT /notes</h4>
+<p>To update the content of a note (title, note_text, tags). Including all 3 fields in the request is not mandatory. Any of the fields can be updated at a time.</p>
+<div class="content">
+    <p>Request:</p>
+    <pre class="content-section">curl -X PUT -H "Authorization: Token $TOKEN" -d '{"note": {"title": $TITLE, "note_text": $NOTE_TEXT, "tags": [$TAGS]}}' http://127.0.0.1:8000/api/notes/</pre>
+    <p>Response:</p>
+    <pre class="content-section">{
+    'success': 'Note $TITLE updated successfully'
+}</pre>
+</div>
+
+<h4>DELETE /notes</h4>
+<p>To delete a particular note belonging to an authenticated user.</p>
+<div class="content">
+    <p>Request:</p>
+    <pre class="content-section">curl -X DELETE -H "Authorization: Token $TOKEN" -d '{"note": {"pk": $PK}}' {{ curr_site }}/api/notes/</pre>
+    <p>Response:</p>
+    <pre class="content-section">{
+    'success': 'Note $TITLE deleted successfully'
+}</pre>
+</div>
+{% endblock content %}

@@ -94,6 +94,11 @@ def deleteProfile(request):
     return redirect('login')
 
 
+def apiHome(request):
+    # return HttpResponse('hello, there')
+    return render(request, "users/apihome.html", {'curr_site': get_current_site(request)})
+
+
 class UserAPIView(APIView):
     def get(self, request):
         auth_token = request.headers.get('Authorization')

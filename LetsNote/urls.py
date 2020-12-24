@@ -41,6 +41,7 @@ urlpatterns = [
     path('addnote/', notes_views.addNote, name="addnote"),
     path('deletenote/<int:pk>/', notes_views.deleteNote, name="delete-note"),
     path('editnote/<int:pk>/', notes_views.editNote, name="edit-note"),
+    path('api/', user_views.apiHome, name="api-home"),
     path('api/api-token-auth/', rest_views.obtain_auth_token),
     path('api/users/', user_views.UserAPIView.as_view()),
     path('api/notes/', notes_views.NoteAPIView.as_view()),
